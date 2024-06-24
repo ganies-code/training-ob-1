@@ -1,2 +1,2 @@
-# This is sample repo
-## this is sub text
+# This is a sample repo
+## This is subtext

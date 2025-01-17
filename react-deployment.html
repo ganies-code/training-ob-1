@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React App Deployment with Nginx and DNS Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #27ae60; /* Green for section headings */
+            margin-top: 20px;
+        }
+        h3 {
+            color: #2980b9; /* Blue for subsections */
+        }
+        .checklist {
+            margin: 0 auto;
+            max-width: 900px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .checklist ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .checklist li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        .checklist label {
+            margin-left: 10px;
+            color: #333;
+        }
+        .code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f4f4f4;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: block;
+            margin: 5px 0;
+            color: #d63384; /* Highlight code in pink */
+        }
+        .tip {
+            background-color: #e7f4e4; /* Highlight tips in light green */
+            padding: 10px;
+            border-left: 4px solid #27ae60;
+            margin: 10px 0;
+        }
+        .warning {
+            background-color: #fff3cd; /* Highlight warnings in yellow */
+            padding: 10px;
+            border-left: 4px solid #856404;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>React App Deployment with Nginx and DNS Integration</h1>
+    <div class="checklist">
+        <h2>1. Prepare the React App</h2>
+        <ul>
+            <li>
+                <input type="checkbox" id="build-app">
+                <label for="build-app"><strong>Build the React App:</strong> Run the following command to create a production build:</label>
+                <div class="code">npm run build</div>
+            </li>
+            <li>
+                <input type="checkbox" id="verify-build">
+                <label for="verify-build"><strong>Verify the Build:</strong> Test the build locally to ensure it works:</label>
+                <div class="code">npx serve -s build</div>
+            </li>
+        </ul>
+
+        <h2>2. Set Up the Server</h2>
+        <ul>
+            <li>
+                <input type="checkbox" id="install-nginx">
+                <label for="install-nginx"><strong>Install Nginx:</strong> Update packages and install Nginx:</label>
+                <div class="code">
+sudo apt update<br>
+sudo apt install nginx
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" id="start-nginx">
+                <label for="start-nginx"><strong>Start and Enable Nginx:</strong> Run the following commands:</label>
+                <div class="code">
+sudo systemctl start nginx<br>
+sudo systemctl enable nginx
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" id="upload-build">
+                <label for="upload-build"><strong>Upload React Build Files:</strong> Transfer the <span class="code">build/</span> folder to your server:</label>
+                <div class="code">scp -r build/ user@your-server-ip:/var/www/react-app</div>
+            </li>
+        </ul>
+
+        <h2>3. Configure Nginx</h2>
+        <ul>
+            <li>
+                <input type="checkbox" id="nginx-config">
+                <label for="nginx-config"><strong>Create Nginx Configuration:</strong> Create a configuration file for your React app:</label>
+                <div class="code">sudo nano /etc/nginx/sites-available/react-app</div>
+                <div class="code">
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+
+    root /var/www/react-app;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+
+    error_page 404 /index.html;
+
+    location ~ /\. {
+        deny all;
+    }
+}
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" id="enable-config">
+                <label for="enable-config"><strong>Enable Configuration:</strong> Link the configuration file and restart Nginx:</label>
+                <div class="code">
+sudo ln -s /etc/nginx/sites-available/react-app /etc/nginx/sites-enabled/<br>
+sudo nginx -t<br>
+sudo systemctl restart nginx
+                </div>
+            </li>
+        </ul>
+
+        <h2>4. Secure the App with SSL</h2>
+        <ul>
+            <li>
+                <input type="checkbox" id="install-certbot">
+                <label for="install-certbot"><strong>Install Certbot:</strong> Use Certbot to generate an SSL certificate:</label>
+                <div class="code">sudo apt install certbot python3-certbot-nginx</div>
+            </li>
+            <li>
+                <input type="checkbox" id="generate-ssl">
+                <label for="generate-ssl"><strong>Generate SSL Certificate:</strong> Run the following command:</label>
+                <div class="code">sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com</div>
+            </li>
+            <li>
+                <input type="checkbox" id="test-renewal">
+                <label for="test-renewal"><strong>Test SSL Renewal:</strong> Ensure automatic renewal works:</label>
+                <div class="code">sudo certbot renew --dry-run</div>
+            </li>
+        </ul>
+
+        <h2>5. Configure DNS for Domain</h2>
+        <ul>
+            <li>
+                <input type="checkbox" id="dns-settings">
+                <label for="dns-settings"><strong>Update DNS Settings:</strong> Add an A Record in your domain registrar:</label>
+                <div class="tip">
+                    <strong>Example:</strong> <br>
+                    Name: @ or www <br>
+                    Type: A <br>
+                    Value: Your Server IP Address <br>
+                    TTL: Default or 1 Hour
+                </div>
+            </li>
+        </ul>
+
+        <h2>6. Test and Monitor</h2>
+        <ul>
+            <li>
+                <input type="checkbox" id="access-site">
+                <label for="access-site"><strong>Access Your Site:</strong> Open your browser and visit your domain.</label>
+            </li>
+            <li>
+                <input type="checkbox" id="monitor-logs">
+                <label for="monitor-logs"><strong>Monitor Logs:</strong> Use these commands to check for errors:</label>
+                <div class="code">
+sudo tail -f /var/log/nginx/access.log<br>
+sudo tail -f /var/log/nginx/error.log
+                </div>
+            </li>
+        </ul>
+
+        <div class="tip">
+            <strong>Tip:</strong> Use tools like <a href="https://dnschecker.org" target="_blank">DNS Checker</a> to verify DNS propagation.
+        </div>
+        <div class="warning">
+            <strong>Warning:</strong> Ensure environment variables are secure and never hardcoded in your application.
+        </div>
+    </div>
+</body>
+</html>

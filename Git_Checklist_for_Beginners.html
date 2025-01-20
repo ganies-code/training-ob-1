@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git Checklist for Beginners</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background: #fff;
+      margin: 10px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    code {
+      background: #eee;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Git Checklist for Beginners</h1>
+  <ul>
+    <li>
+      <strong>1. Install Git</strong>
+      <p>Download and install Git from the <a href="https://git-scm.com/" target="_blank">official Git website</a>.</p>
+    </li>
+    <li>
+      <strong>2. Configure Git</strong>
+      <p>Set up your name and email for Git:</p>
+      <pre><code>git config --global user.name "Your Name"</code></pre>
+      <pre><code>git config --global user.email "you@example.com"</code></pre>
+    </li>
+    <li>
+      <strong>3. Initialize a Repository</strong>
+      <p>Create a new repository:</p>
+      <pre><code>git init</code></pre>
+      <p>This command initializes a new Git repository in your project folder.</p>
+    </li>
+    <li>
+      <strong>4. Check the Repository Status</strong>
+      <p>Check the current state of your repository:</p>
+      <pre><code>git status</code></pre>
+      <p>This shows which files have been modified or staged for commit.</p>
+    </li>
+    <li>
+      <strong>5. Add Files to Staging</strong>
+      <p>Stage your changes:</p>
+      <pre><code>git add .</code></pre>
+      <p>The <code>.</code> stages all files. You can specify individual files if needed.</p>
+    </li>
+    <li>
+      <strong>6. Commit Changes</strong>
+      <p>Save your changes to the repository:</p>
+      <pre><code>git commit -m "Initial commit"</code></pre>
+      <p>Always use descriptive commit messages.</p>
+    </li>
+    <li>
+      <strong>7. Connect to a Remote Repository</strong>
+      <p>Add a remote repository (e.g., on GitHub):</p>
+      <pre><code>git remote add origin https://github.com/username/repo.git</code></pre>
+      <p>Replace <code>username/repo.git</code> with your repository URL.</p>
+    </li>
+    <li>
+      <strong>8. Push Changes to Remote</strong>
+      <p>Push your changes to the remote repository:</p>
+      <pre><code>git push -u origin main</code></pre>
+      <p>The <code>-u</code> flag sets the upstream branch for future pushes.</p>
+    </li>
+    <li>
+      <strong>9. Pull Updates from Remote</strong>
+      <p>Sync your local repository with the remote:</p>
+      <pre><code>git pull origin main</code></pre>
+      <p>This fetches and merges changes from the remote repository.</p>
+    </li>
+    <li>
+      <strong>10. Create a Branch</strong>
+      <p>Create and switch to a new branch:</p>
+      <pre><code>git checkout -b feature-branch</code></pre>
+      <p>Use branches for new features or experiments.</p>
+    </li>
+    <li>
+      <strong>11. Merge a Branch</strong>
+      <p>Merge your branch back into the main branch:</p>
+      <pre><code>git checkout main</code></pre>
+      <pre><code>git merge feature-branch</code></pre>
+    </li>
+    <li>
+      <strong>12. Resolve Merge Conflicts</strong>
+      <p>If conflicts arise during a merge, resolve them in your editor, then:</p>
+      <pre><code>git add .</code></pre>
+      <pre><code>git commit</code></pre>
+    </li>
+    <li>
+      <strong>13. View Commit History</strong>
+      <p>See the commit history:</p>
+      <pre><code>git log</code></pre>
+    </li>
+    <li>
+      <strong>14. Clone a Repository</strong>
+      <p>Clone an existing repository to your local machine:</p>
+      <pre><code>git clone https://github.com/username/repo.git</code></pre>
+    </li>
+    <li>
+      <strong>15. Best Practices</strong>
+      <ul>
+        <li>Commit frequently with clear messages.</li>
+        <li>Use branches for features or fixes.</li>
+        <li>Pull changes before starting new work.</li>
+        <li>Keep your main branch stable.</li>
+      </ul>
+    </li>
+  </ul>
+</body>
+</html>
